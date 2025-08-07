@@ -67,13 +67,13 @@ class _HomePageState extends State<HomePage> {
                     iconSize: 50,
                     padding: EdgeInsets.only(bottom: 10),
                   ),
+
                   IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.skip_next_rounded),
                     iconSize: 50,
                     padding: EdgeInsets.only(bottom: 10),
                   ),
-
                   Spacer(),
 
                   IconButton(
@@ -106,19 +106,17 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(5),
               child: Row(
                 children: [
-                  Expanded(
-                    flex: 3,
+                  SizedBox(
                     child: GlossyContainer(
                       height: 300,
-                      width: double.infinity,
+                      width: 175,
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
 
                   SizedBox(width: 7),
-
                   Expanded(
-                    flex: 4,
+                    flex: 3,
                     child: GlossyContainer(
                       height: 300,
                       width: double.infinity,
@@ -129,7 +127,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            Divider(endIndent: 50, indent: 50),
+            Divider(endIndent: 100, indent: 100),
 
             Expanded(
               child: Padding(
