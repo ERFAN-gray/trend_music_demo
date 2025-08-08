@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trend_music_demo/pages/home_page.dart';
+import 'package:trend_music_demo/providers/music_provider.dart';
 import 'package:trend_music_demo/themes/theme_provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(create: (_) => ThemeProvider(), child: TrendMusic()),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => MusicProvider()),
+      ],
+      child: TrendMusic(),
+    ),
   );
 }
 

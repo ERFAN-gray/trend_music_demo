@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:glossy/glossy.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:trend_music_demo/drawer_contents.dart';
+import 'package:trend_music_demo/providers/music_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,9 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Icon hearticon = Icon(Icons.favorite_outline_rounded);
-  Icon musicStatusIcon = Icon(Icons.pause_circle_filled_rounded);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,17 +52,15 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
+                  // play/pause button
                   IconButton(
-                    onPressed: () {
-                      setState(() {
-                        musicStatusIcon =
-                            musicStatusIcon.icon ==
-                                Icons.pause_circle_filled_rounded
-                            ? Icon(Icons.play_circle_filled_rounded)
-                            : Icon(Icons.pause_circle_filled_rounded);
-                      });
-                    },
-                    icon: musicStatusIcon,
+                    onPressed: Provider.of<MusicProvider>(
+                      context,
+                    ).togglePlayPause,
+
+                    icon: Provider.of<MusicProvider>(context).isPlaying
+                        ? Icon(Icons.pause_circle_filled_rounded)
+                        : Icon(Icons.play_circle_filled_rounded),
                     iconSize: 50,
                     padding: EdgeInsets.only(bottom: 10),
                   ),
@@ -83,18 +80,14 @@ class _HomePageState extends State<HomePage> {
                   ),
 
                   IconButton(
-                    onPressed: () {
-                      setState(() {
-                        hearticon =
-                            hearticon.icon == Icons.favorite_outline_rounded
-                            ? Icon(
-                                Icons.favorite_rounded,
-                                color: Colors.redAccent,
-                              )
-                            : Icon(Icons.favorite_outline_rounded);
-                      });
-                    },
-                    icon: hearticon,
+                    onPressed: Provider.of<MusicProvider>(context).toggleLike,
+                    icon: Provider.of<MusicProvider>(context).isLiked
+                        ? Icon(Icons.favorite_rounded)
+                        : Icon(Icons.favorite_outline_rounded),
+                    color: Provider.of<MusicProvider>(context).isLiked
+                        ? Colors.redAccent.shade400
+                        : null,
+
                     iconSize: 35,
                     padding: EdgeInsets.only(bottom: 2),
                   ),
@@ -112,6 +105,18 @@ class _HomePageState extends State<HomePage> {
                       height: 300,
                       width: 175,
                       borderRadius: BorderRadius.circular(15),
+                      child: Center(
+                        child: Text(
+                          "video graphy",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.inversePrimary.withAlpha(130),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
 
@@ -122,6 +127,18 @@ class _HomePageState extends State<HomePage> {
                       height: 300,
                       width: double.infinity,
                       borderRadius: BorderRadius.circular(15),
+                      child: Center(
+                        child: Text(
+                          "trended musics",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.inversePrimary.withAlpha(130),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -138,6 +155,18 @@ class _HomePageState extends State<HomePage> {
                   height: double.infinity,
                   width: double.infinity,
                   borderRadius: BorderRadius.circular(30),
+                  child: Center(
+                    child: Text(
+                      "music playlist",
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.inversePrimary.withAlpha(130),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
