@@ -12,7 +12,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Icon hearticon = Icon(Icons.favorite_outline_rounded);
-
   Icon musicStatusIcon = Icon(Icons.pause_circle_filled_rounded);
 
   @override
@@ -31,6 +30,7 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
+            // media player
             GlossyContainer(
               padding: EdgeInsets.only(top: 3),
               opacity: 0.3,
@@ -102,6 +102,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
+            // top widgets
             Padding(
               padding: const EdgeInsets.all(5),
               child: Row(
@@ -129,6 +130,7 @@ class _HomePageState extends State<HomePage> {
 
             Divider(endIndent: 100, indent: 100),
 
+            // bottom widgets
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(4),
