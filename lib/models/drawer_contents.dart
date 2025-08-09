@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:trend_music_demo/themes/theme_provider.dart';
+import 'package:trend_music_demo/providers/theme_provider.dart';
 
 class DrawerContents extends StatelessWidget {
   const DrawerContents({super.key});

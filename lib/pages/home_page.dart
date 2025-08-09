@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glossy/glossy.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:trend_music_demo/drawer_contents.dart';
+import 'package:trend_music_demo/models/drawer_contents.dart';
 import 'package:trend_music_demo/providers/music_provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
                   IconButton(
                     onPressed: Provider.of<MusicProvider>(
                       context,
+                      listen: false,
                     ).togglePlayPause,
 
                     icon: Provider.of<MusicProvider>(context).isPlaying
@@ -80,7 +81,10 @@ class _HomePageState extends State<HomePage> {
                   ),
 
                   IconButton(
-                    onPressed: Provider.of<MusicProvider>(context).toggleLike,
+                    onPressed: Provider.of<MusicProvider>(
+                      context,
+                      listen: false,
+                    ).toggleLike,
                     icon: Provider.of<MusicProvider>(context).isLiked
                         ? Icon(Icons.favorite_rounded)
                         : Icon(Icons.favorite_outline_rounded),
@@ -127,17 +131,25 @@ class _HomePageState extends State<HomePage> {
                       height: 300,
                       width: double.infinity,
                       borderRadius: BorderRadius.circular(15),
-                      child: Center(
-                        child: Text(
-                          "trended musics",
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.inversePrimary.withAlpha(130),
-                          ),
-                        ),
+                      child: FutureBuilder(
+                        future: Provider.of<MusicProvider>(
+                          context,
+                          listen: false,
+                        ).fetchMusicsFromServer(),
+                        builder: (context, snapShot) {
+                          if (snapShot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (snapShot.hasError) {
+                            return Center(
+                              child: Text('Error: ${snapShot.error}'),
+                            );
+                          } else if (snapShot.hasData) {
+                            return snapShot.data as Text;
+                          } else {
+                            return Center(child: Text('No data'));
+                          }
+                        },
                       ),
                     ),
                   ),
