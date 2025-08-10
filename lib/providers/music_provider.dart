@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
 import 'package:trend_music_demo/models/music.dart';
 import 'package:http/http.dart';
@@ -51,14 +53,16 @@ class MusicProvider with ChangeNotifier {
     isPlaying = true;
   }
 
-  Future<void> fetchMusicsFromServer() async {
+  Future<Map<String, dynamic>> fetchMusicsFromServer() async {
     final url = Uri.parse(
-      "https://legal-queens-pay.loca.lt/music/6896f04db92863f3df268a6d",
+      "http://192.168.104.164:3000/music/68971127b92863f3df268a6f",
     );
     final response = await get(url);
     if (response.statusCode == 200) {
-      Text(response.body);
-      print(response.body);
+      final data = jsonDecode(response.body);
+      print(data);
+      return data;
     }
+    throw Exception('Failed to load musics from server');
   }
 }
