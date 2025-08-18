@@ -28,12 +28,12 @@ class _HomePageState extends State<HomePage> {
     ).fetchMusicsFromServer();
 
     // Optional: گوش دادن به تغییرات وضعیت پخش
-    _audioPlayer.playerStateStream.listen((state) {
-      final musicProvider = Provider.of<MusicProvider>(context, listen: false);
-      if (state.playing != musicProvider.isPlaying) {
-        musicProvider.isPlaying = state.playing;
-      }
-    });
+    // _audioPlayer.playerStateStream.listen((state) {
+    //   final musicProvider = Provider.of<MusicProvider>(context, listen: false);
+    //   if (state.playing != musicProvider.isPlaying) {
+    //     musicProvider.isPlaying = state.playing;
+    //   }
+    // });
   }
 
   @override
@@ -51,13 +51,12 @@ class _HomePageState extends State<HomePage> {
     } else {
       if (songUrl != null) {
         try {
-          await _audioPlayer.setUrl(
-            "http://192.168.104.164:3000/download/music/eterna-cancao-wav-12569.mp3",
-          ); //songUrl!
-          await _audioPlayer.play();
+          await _audioPlayer.setUrl(songUrl!);
+          _audioPlayer.play();
           musicProvider.isPlaying = true;
         } catch (e) {
           print("Error playing audio: $e");
+          print(songUrl);
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text("Error playing audio: $e")));
@@ -230,18 +229,7 @@ class _HomePageState extends State<HomePage> {
                   height: double.infinity,
                   width: double.infinity,
                   borderRadius: BorderRadius.circular(30),
-                  child: Center(
-                    child: Text(
-                      "music playlist",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.inversePrimary.withAlpha(130),
-                      ),
-                    ),
-                  ),
+                  child: Center(child: Text("play list")),
                 ),
               ),
             ),

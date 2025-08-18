@@ -55,7 +55,7 @@ class MusicProvider with ChangeNotifier {
 
   Future<Map<String, dynamic>> fetchMusicsFromServer() async {
     final url = Uri.parse(
-      "http://192.168.104.164:3000/music/68971127b92863f3df268a6f",
+      "http://192.168.119.164:3000/music/689cae064ee97d109a3f577c",
     );
     final response = await get(url);
     if (response.statusCode == 200) {
@@ -64,5 +64,16 @@ class MusicProvider with ChangeNotifier {
       return data;
     }
     throw Exception('Failed to load musics from server');
+  }
+
+  Future<Map<String, dynamic>> fetchMusicList() async {
+    final url = Uri.parse("http://192.168.119.164:3000/music");
+    final response = await get(url);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print(data);
+      return data;
+    }
+    throw Exception('Failed to list musics from server');
   }
 }
