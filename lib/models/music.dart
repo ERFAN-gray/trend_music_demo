@@ -1,17 +1,15 @@
 class Music {
-  final String? id;
-  final String? title;
-  final String? artist;
-  final String? duration;
-  final String? path;
-  final String? coverImagePath;
+  final String id;
+  final String title;
+  final String musicUrl;
 
-  Music({
-    this.id,
-    this.title,
-    this.artist,
-    this.duration,
-    this.path,
-    this.coverImagePath,
-  });
+  Music({required this.id, required this.title, required this.musicUrl});
+
+  factory Music.fromJson(Map<String, dynamic> json) {
+    return Music(
+      id: json["_id"] ?? "",
+      title: json["title"] ?? "Unknown",
+      musicUrl: json["musicUrl"] ?? "",
+    );
+  }
 }
