@@ -67,32 +67,25 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       drawer: Drawer(child: DrawerContents()),
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsetsGeometry.only(bottom: 5),
-              child: Image.asset("assets/logo/tremu_logo.png", height: 60),
-            ),
-            Padding(
-              padding: EdgeInsetsGeometry.only(top: 25, right: 40),
-              child: Text(
-                "T r e m u",
-                style: GoogleFonts.workbench(
-                  fontSize: 30,
-                  color: Color.fromARGB(
-                    255,
-                    200,
-                    88,
-                    113,
-                  ), //0xFFCEA35D => set a condition to change tittle color
+        title: Hero(
+          tag: "title",
+          child: Text(
+            "T r e m u",
+            style: GoogleFonts.workbench(
+              fontSize: 45,
+              color: Color.fromARGB(255, 232, 97, 126),
+              shadows: [
+                Shadow(
+                  blurRadius: 5,
+                  color: const Color.fromARGB(105, 0, 0, 0),
+                  offset: Offset(5, 5),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
-        centerTitle: false,
       ),
 
       body: SafeArea(
@@ -107,9 +100,9 @@ class _HomePageState extends State<HomePage> {
             children: [
               // media player
               GlossyContainer(
-                image: DecorationImage(
-                  image: AssetImage("assets/gifs/animegirl.gif"),
-                ),
+                // image: DecorationImage(
+                //   image: AssetImage("assets/gifs/animegirl.gif"),
+                // ),
                 padding: const EdgeInsets.only(top: 1, left: 3, right: 3),
                 borderRadius: BorderRadius.circular(25),
                 height: 100,

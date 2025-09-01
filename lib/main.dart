@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:trend_music_demo/pages/home_page.dart';
+import 'package:trend_music_demo/pages/login_page.dart';
 import 'package:trend_music_demo/providers/music_provider.dart';
 import 'package:trend_music_demo/providers/theme_provider.dart';
 
@@ -23,7 +23,7 @@ class TrendMusic extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: LoginPage(),
       theme: Provider.of<ThemeProvider>(context).theme,
     );
   }
