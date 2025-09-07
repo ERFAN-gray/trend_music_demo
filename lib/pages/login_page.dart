@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:glossy/glossy.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trend_music_demo/models/constants.dart';
 import 'package:trend_music_demo/pages/home_page.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -40,8 +43,6 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                     fontSize: 70,
                     color: Color.fromARGB(255, 232, 97, 126),
-
-                    //  // => set a condition to change tittle color
                   ),
                 ),
               ),
@@ -64,12 +65,14 @@ class _LoginPageState extends State<LoginPage> {
                       "assets/backgrounds/cuteanimegirl.png",
                       height: 150,
                     ),
-                    //text fields
-                    kTextFieldDecoration,
-                    kTextFieldDecoration,
 
+                    //text fields
+                    kTextfieldDecoration("Username", Icons.person),
+                    SizedBox(height: 5),
+                    kTextfieldDecoration("Password", Icons.lock),
+                    //login button
                     Padding(
-                      padding: const EdgeInsets.only(top: 30),
+                      padding: const EdgeInsets.only(top: 25),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(
@@ -86,12 +89,35 @@ class _LoginPageState extends State<LoginPage> {
                             vertical: 20,
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           // Handle login logic here
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomePage()),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => HomePage()),
+                          // );
+
+                          try {
+                            final url = Uri.parse(
+                              "https://73vkk68w-3000.usw3.devtunnels.ms/auth/login",
+                            );
+                            final response = await http.post(
+                              url,
+                              headers: {"Content-Type": "application/json"},
+                              body: jsonEncode({
+                                "identifier": "grayerf",
+                                "password": "12341234",
+                              }),
+                            );
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(),
+                              ),
+                            );
+
+                            print(response.body);
+                          } catch (e) {}
                         },
                         child: Text(
                           'Login',

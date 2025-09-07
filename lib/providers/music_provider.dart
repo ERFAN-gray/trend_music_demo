@@ -56,22 +56,32 @@ class MusicProvider with ChangeNotifier {
   }
 
   // Fetch single music (for test)
-  Future<Music> fetchSingleMusic() async {
-    final url = Uri.parse(
-      "http://192.168.119.164:3000/music/689cae064ee97d109a3f577c",
-    );
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      return Music.fromJson(data);
-    }
-    throw Exception('Failed to load music');
-  }
+  // Future<Music> fetchSingleMusic() async {
+  //   final url = Uri.parse("https://73vkk68w-3000.usw3.devtunnels.ms/music");
+  //   final response = await http.get(
+  //     url,
+  //     headers: {
+  //       "Authorization":
+  //           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YmJjN2EyNjhjOGJlMjNlOTIzNGFkMyIsImlhdCI6MTc1NzEzODc0MCwiZXhwIjoxNzU3MjI1MTQwfQ.D4vxjhStw1xwYsnKLJaO-8GkXerOC-7e-w1rATEEpJU",
+  //     },
+  //   );
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body);
+  //     return Music.fromJson(data);
+  //   }
+  //   throw Exception('Failed to load music');
+  // }
 
   // Fetch music list
   Future<List<Music>> fetchMusicList() async {
-    final url = Uri.parse("http://192.168.119.164:3000/music");
-    final response = await http.get(url);
+    final url = Uri.parse("https://73vkk68w-3000.usw3.devtunnels.ms/music");
+    final response = await http.get(
+      url,
+      headers: {
+        "Authorization":
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YmJjN2EyNjhjOGJlMjNlOTIzNGFkMyIsImlhdCI6MTc1NzEzODc0MCwiZXhwIjoxNzU3MjI1MTQwfQ.D4vxjhStw1xwYsnKLJaO-8GkXerOC-7e-w1rATEEpJU",
+      },
+    );
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
       final musics = data.map((e) => Music.fromJson(e)).toList();

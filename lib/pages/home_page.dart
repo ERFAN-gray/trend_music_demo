@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:glossy/glossy.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:trend_music_demo/models/drawer_contents.dart';
 import 'package:trend_music_demo/models/music.dart';
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late AudioPlayer _audioPlayer;
   late Future<List<Music>> _musicListFuture;
+  double playerHeight = 61;
 
   @override
   void initState() {
@@ -100,38 +102,50 @@ class _HomePageState extends State<HomePage> {
             children: [
               // media player
               GlossyContainer(
-                // image: DecorationImage(
-                //   image: AssetImage("assets/gifs/animegirl.gif"),
-                // ),
                 padding: const EdgeInsets.only(top: 1, left: 3, right: 3),
-                borderRadius: BorderRadius.circular(25),
-                height: 100,
+                borderRadius: BorderRadius.circular(33),
+                height: playerHeight,
                 width: double.infinity,
-                child: Row(
+                child: Column(
                   children: [
-                    Expanded(
-                      flex: 5,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(
-                          musicProvider.currentMusic?.title ?? "Select music",
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              musicProvider.currentMusic?.title ??
+                                  "Select music",
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                    ),
 
-                    // Play/Pause Button
-                    IconButton(
-                      onPressed: _handlePlayPause,
-                      icon: musicProvider.isPlaying
-                          ? const Icon(Icons.pause_circle_filled_rounded)
-                          : const Icon(Icons.play_circle_filled_rounded),
-                      iconSize: 50,
-                      padding: const EdgeInsets.only(bottom: 10),
+                        // Play/Pause Button
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _handlePlayPause();
+                              playerHeight = musicProvider.isPlaying ? 100 : 61;
+                            });
+                          },
+                          icon: musicProvider.isPlaying
+                              ? const Icon(Icons.pause_circle_filled_rounded)
+                              : const Icon(Icons.play_circle_filled_rounded),
+                          iconSize: 50,
+                          padding: const EdgeInsets.only(bottom: 5, top: 5),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: musicProvider.isPlaying
+                          ? Lottie.asset("assets/gifs/MusicVisualizer.json")
+                          : const SizedBox.shrink(),
                     ),
                   ],
                 ),
