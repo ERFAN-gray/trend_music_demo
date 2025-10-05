@@ -30,5 +30,5 @@ class TrendMusic extends StatelessWidget {
 }
 
 void erfan(String name) {
-  print(name);
+  print("dorost shode ?");
 }
